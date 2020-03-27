@@ -14,6 +14,9 @@
 		B93B8BD2242E35680062CEF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B93B8BD0242E35680062CEF2 /* LaunchScreen.storyboard */; };
 		B93B8BDD242E35690062CEF2 /* NewsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B8BDC242E35690062CEF2 /* NewsAppTests.swift */; };
 		B93B8BE8242E35690062CEF2 /* NewsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B8BE7242E35690062CEF2 /* NewsAppUITests.swift */; };
+		B93B8BF9242E38610062CEF2 /* SampleLogo1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B93B8BF6242E38610062CEF2 /* SampleLogo1.jpg */; };
+		B93B8BFA242E38610062CEF2 /* SampleLogo2.png in Resources */ = {isa = PBXBuildFile; fileRef = B93B8BF7242E38610062CEF2 /* SampleLogo2.png */; };
+		B93B8BFB242E38610062CEF2 /* SampleLogo3.png in Resources */ = {isa = PBXBuildFile; fileRef = B93B8BF8242E38610062CEF2 /* SampleLogo3.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		B93B8BE3242E35690062CEF2 /* NewsAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B93B8BE7242E35690062CEF2 /* NewsAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAppUITests.swift; sourceTree = "<group>"; };
 		B93B8BE9242E35690062CEF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B93B8BF6242E38610062CEF2 /* SampleLogo1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SampleLogo1.jpg; sourceTree = "<group>"; };
+		B93B8BF7242E38610062CEF2 /* SampleLogo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleLogo2.png; sourceTree = "<group>"; };
+		B93B8BF8242E38610062CEF2 /* SampleLogo3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SampleLogo3.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +135,9 @@
 		B93B8BF5242E35A90062CEF2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B93B8BF6242E38610062CEF2 /* SampleLogo1.jpg */,
+				B93B8BF7242E38610062CEF2 /* SampleLogo2.png */,
+				B93B8BF8242E38610062CEF2 /* SampleLogo3.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -237,8 +246,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B93B8BFB242E38610062CEF2 /* SampleLogo3.png in Resources */,
+				B93B8BFA242E38610062CEF2 /* SampleLogo2.png in Resources */,
 				B93B8BD2242E35680062CEF2 /* LaunchScreen.storyboard in Resources */,
 				B93B8BCF242E35680062CEF2 /* Assets.xcassets in Resources */,
+				B93B8BF9242E38610062CEF2 /* SampleLogo1.jpg in Resources */,
 				B93B8BCD242E35670062CEF2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +451,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JJCRVQY6GL;
 				INFOPLIST_FILE = NewsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -457,6 +470,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JJCRVQY6GL;
 				INFOPLIST_FILE = NewsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

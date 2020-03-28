@@ -7,19 +7,41 @@
 //
 
 import UIKit
+import Kanna
 
 class ViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        // Do any additional setup after loading the view.
-    }
+        
+        let urlString = "https://news.google.com/rss"
+        guard let url = URL(string: urlString) else {return}
+        
+        if let doc = try? XML(url: url, encoding: .utf8) {
+//            for item in doc.xpath("//title") {
+//                print(item.text!)
+//            }
+            for item in doc.xpath("//item/link") {
+                let link = URL(string: item.text!)
+                if let content = try? HTML(url: link!, encoding: .utf8) {
+                    for item2 in content.xpath("//meta[@property='og:description']") {
+                        let contents = item2["content"]
+                        print(contents)
+                    }
+                  
+                }
+            }
+        }
 
+    }
 }
 
 extension ViewController : UITableViewDelegate, UITableViewDataSource {

@@ -13,7 +13,9 @@ class ViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     
-    
+    var titles = [String]()
+    var images = [UIImage]()
+    var contents = [String]()
     
     
     override func viewDidLoad() {
@@ -22,25 +24,43 @@ class ViewController: UIViewController{
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        fetch()
+
+    }
+    
+    func fetch() {
+        
         let urlString = "https://news.google.com/rss"
         guard let url = URL(string: urlString) else {return}
         
         if let doc = try? XML(url: url, encoding: .utf8) {
-//            for item in doc.xpath("//title") {
-//                print(item.text!)
-//            }
+            for item in doc.xpath("//title") {
+                titles.append(item.text!)
+            }
             for item in doc.xpath("//item/link") {
                 let link = URL(string: item.text!)
-                if let content = try? HTML(url: link!, encoding: .utf8) {
-                    for item2 in content.xpath("//meta[@property='og:description']") {
-                        let contents = item2["content"]
-                        print(contents)
+                if let loadedHTML = try? HTML(url: link!, encoding: .utf8) {
+                    for contentFromHTML in loadedHTML.xpath("//meta[@property='og:image']") {
+                        let target = contentFromHTML["content"]
+                        let url = URL(string: target!)
+                        do {
+                            let data = try Data(contentsOf: url!)
+                            let image = UIImage(data: data)
+                            images.append(image!)
+                        } catch let err {
+                            print("Error : \(err.localizedDescription)")
+                        }
+                        
+                        
                     }
-                  
+                    
+                    for contentFromHTML in loadedHTML.xpath("//meta[@property='og:description']") {
+                        let target = contentFromHTML["content"]
+                        contents.append(target!)
+                    }
                 }
             }
         }
-
     }
 }
 
@@ -53,24 +73,22 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NewsCell
         
-        cell.imageFromRSS.image = UIImage(named: "SampleLogo1.jpg")
-        cell.titleFromRSS.text = "title"
-        cell.contentFromRSS.text = "content"
+        cell.imageFromRSS.image = self.images[indexPath.row]
+        cell.titleFromRSS.text = self.titles[indexPath.row]
+        cell.contentFromRSS.text = self.contents[indexPath.row]
+        
+        
         cell.keyWord1.text = "keyword1"
-        
-        
         cell.keyWord1.layer.borderColor = UIColor.black.cgColor
         cell.keyWord1.layer.borderWidth = 1.0
         cell.keyWord1.layer.cornerRadius = 8.0
         
         cell.keyWord2.text = "keyword2"
-        
         cell.keyWord2.layer.borderColor = UIColor.black.cgColor
         cell.keyWord2.layer.borderWidth = 1.0
         cell.keyWord2.layer.cornerRadius = 8.0
         
         cell.keyWord3.text = "keyword3"
-        
         cell.keyWord3.layer.borderColor = UIColor.black.cgColor
         cell.keyWord3.layer.borderWidth = 1.0
         cell.keyWord3.layer.cornerRadius = 8.0
@@ -93,3 +111,5 @@ class NewsCell: UITableViewCell{
     @IBOutlet weak var keyWord3: UILabel!
     
 }
+
+

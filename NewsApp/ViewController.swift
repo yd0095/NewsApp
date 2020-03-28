@@ -17,6 +17,7 @@ class ViewController: UIViewController{
     var images = [UIImage]()
     var contents = [String]()
     
+    var keywords = [Int : String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,7 @@ class ViewController: UIViewController{
         self.tableView.dataSource = self
         
         fetch()
-
+        findKeyword()
     }
     
     func fetch() {
@@ -34,32 +35,69 @@ class ViewController: UIViewController{
         guard let url = URL(string: urlString) else {return}
         
         if let doc = try? XML(url: url, encoding: .utf8) {
-            for item in doc.xpath("//title") {
+            for item in doc.xpath("//item/title") {
                 titles.append(item.text!)
+                
             }
             for item in doc.xpath("//item/link") {
-                let link = URL(string: item.text!)
-                if let loadedHTML = try? HTML(url: link!, encoding: .utf8) {
-                    for contentFromHTML in loadedHTML.xpath("//meta[@property='og:image']") {
-                        let target = contentFromHTML["content"]
-                        let url = URL(string: target!)
-                        do {
-                            let data = try Data(contentsOf: url!)
-                            let image = UIImage(data: data)
-                            images.append(image!)
-                        } catch let err {
-                            print("Error : \(err.localizedDescription)")
-                        }
-                        
-                        
-                    }
-                    
-                    for contentFromHTML in loadedHTML.xpath("//meta[@property='og:description']") {
-                        let target = contentFromHTML["content"]
-                        contents.append(target!)
-                    }
+               let link = URL(string: item.text!)
+               if let loadedHTML = try? HTML(url: link!, encoding: .utf8) {
+                   for contentFromHTML in loadedHTML.xpath("//meta[@property='og:image']") {
+                       let imageUrlString = contentFromHTML["content"]
+                       guard let imageUrl:URL = URL(string: imageUrlString!) else { return }
+                       //for debug
+                       print(imageUrl)
+       
+                       do {
+                           let data = try Data(contentsOf: imageUrl)
+                           let image = UIImage(data: data)
+                           images.append(image!)
+                           
+                       } catch let err {
+                           print("Error : \(err.localizedDescription)")
+                       }
+                    //file download assurance TODO!!
+                       
+                   }
+                   for contentFromHTML in loadedHTML.xpath("//meta[@property='og:description']") {
+                       let target = contentFromHTML["content"]
+                       self.contents.append(target!)
+                   }
+               }
+            }
+            
+        }
+    }
+
+    
+    func findKeyword() {
+        
+        var i = 0
+        
+        for content in self.contents {
+            let arr = content.components(separatedBy: " ")
+            var dic = [String : Int]()
+            for i in arr {
+                if let val = dic[i] {
+                    dic[i] = val+1
+                } else {
+                    dic[i] = 1
                 }
             }
+
+            let sortedDic = dic.sorted(by: {($1.value, $0.key) < ($0.value, $1.key)})
+            
+            for index in sortedDic {
+                if self.keywords[i] != nil{
+                    self.keywords[i] = self.keywords[i]! + " " + index.key
+                }
+                else {
+                    self.keywords[i] = index.key
+                }
+            }
+            
+            i+=1
+            
         }
     }
 }
@@ -78,17 +116,19 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         cell.contentFromRSS.text = self.contents[indexPath.row]
         
         
-        cell.keyWord1.text = "keyword1"
+        let arr = keywords[indexPath.row]?.components(separatedBy: " ")
+        
+        cell.keyWord1.text = arr![0]
         cell.keyWord1.layer.borderColor = UIColor.black.cgColor
         cell.keyWord1.layer.borderWidth = 1.0
         cell.keyWord1.layer.cornerRadius = 8.0
         
-        cell.keyWord2.text = "keyword2"
+        cell.keyWord2.text = arr![1]
         cell.keyWord2.layer.borderColor = UIColor.black.cgColor
         cell.keyWord2.layer.borderWidth = 1.0
         cell.keyWord2.layer.cornerRadius = 8.0
         
-        cell.keyWord3.text = "keyword3"
+        cell.keyWord3.text = arr![2]
         cell.keyWord3.layer.borderColor = UIColor.black.cgColor
         cell.keyWord3.layer.borderWidth = 1.0
         cell.keyWord3.layer.cornerRadius = 8.0

@@ -9,7 +9,7 @@
 import UIKit
 import Kanna
 
-class ViewController: UIViewController{
+class ViewController: UIViewController { 
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -17,9 +17,14 @@ class ViewController: UIViewController{
     var images = [UIImage]()
     var contents = [String]()
     
+    var links = [String]()
+    
+    
     var keywords = [Int : String]()
     
     var refreshControl : UIRefreshControl?
+    
+    var presentRow : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +61,7 @@ class ViewController: UIViewController{
                 
             }
             for item in doc.xpath("//item/link") {
+                links.append(item.text!)
                let link = URL(string: item.text!)
                if let loadedHTML = try? HTML(url: link!, encoding: .utf8) {
                    for contentFromHTML in loadedHTML.xpath("//meta[@property='og:image']") {
@@ -124,10 +130,6 @@ class ViewController: UIViewController{
 
 extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
-    
-    
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
@@ -178,10 +180,23 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        self.presentRow = indexPath.row
         self.performSegue(withIdentifier: "ToContent", sender: self)
+        
     }
     
 }
+extension ViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToContent" {
+            guard let toContent = segue.destination as? ContentViewController else { return }
+            toContent.link = self.links[self.presentRow]
+        }
+    }
+    
+    
+}
+
 
 class NewsCell: UITableViewCell{
     

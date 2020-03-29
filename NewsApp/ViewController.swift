@@ -122,7 +122,6 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         
         let arr = keywords[indexPath.row]?.components(separatedBy: " ")
         
-        
         print(arr)
         
         cell.keyWord1.adjustsFontSizeToFitWidth = true
@@ -134,17 +133,17 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         cell.keyWord3.adjustsFontSizeToFitWidth = true
         cell.keyWord3.minimumScaleFactor = 0.2
         
-        cell.keyWord1.text = arr![0].replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "\'", with: "")
+        cell.keyWord1.text = arr![0].trimmingCharacters(in: ["\"","“","'","‘",","])
         cell.keyWord1.layer.borderColor = UIColor.black.cgColor
         cell.keyWord1.layer.borderWidth = 1.0
         cell.keyWord1.layer.cornerRadius = 8.0
         
-        cell.keyWord2.text = arr![1].replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "\'", with: "")
+        cell.keyWord2.text = arr![1].trimmingCharacters(in: ["\"","“","'","‘",","])
         cell.keyWord2.layer.borderColor = UIColor.black.cgColor
         cell.keyWord2.layer.borderWidth = 1.0
         cell.keyWord2.layer.cornerRadius = 8.0
         
-        cell.keyWord3.text = arr![2].replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "\'", with: "")
+        cell.keyWord3.text = arr![2].trimmingCharacters(in: ["\"","“","'","‘",","])
         cell.keyWord3.layer.borderColor = UIColor.black.cgColor
         cell.keyWord3.layer.borderWidth = 1.0
         cell.keyWord3.layer.cornerRadius = 8.0

@@ -19,14 +19,30 @@ class ViewController: UIViewController{
     
     var keywords = [Int : String]()
     
+    var refreshControl : UIRefreshControl?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        addRefreshControl()
         fetch()
         findKeyword()
+        
+    }
+    func addRefreshControl() {
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.tintColor = UIColor.red
+        refreshControl?.addTarget(self, action: #selector(refreshList), for: .valueChanged)
+        tableView.addSubview(refreshControl!)
+    }
+    @objc func refreshList() {
+        fetch()
+        refreshControl?.endRefreshing()
+        tableView.reloadData()
     }
     
     func fetch() {
@@ -107,6 +123,11 @@ class ViewController: UIViewController{
 }
 
 extension ViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
@@ -154,6 +175,12 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: "ToContent", sender: self)
+    }
+    
 }
 
 class NewsCell: UITableViewCell{

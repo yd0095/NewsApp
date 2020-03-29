@@ -31,7 +31,7 @@ class ViewController: UIViewController{
     
     func fetch() {
         
-        let urlString = "https://news.google.com/rss"
+        let urlString = "https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko"
         guard let url = URL(string: urlString) else {return}
         
         if let doc = try? XML(url: url, encoding: .utf8) {
@@ -78,15 +78,19 @@ class ViewController: UIViewController{
             let arr = content.components(separatedBy: " ")
             var dic = [String : Int]()
             for i in arr {
-                if let val = dic[i] {
-                    dic[i] = val+1
-                } else {
-                    dic[i] = 1
+                if i.count > 1 {
+                    if let val = dic[i] {
+                        dic[i] = val+1
+                    } else {
+                        dic[i] = 1
+                    }
+                }
+                else {
+                    continue
                 }
             }
 
             let sortedDic = dic.sorted(by: {($1.value, $0.key) < ($0.value, $1.key)})
-            
             for index in sortedDic {
                 if self.keywords[i] != nil{
                     self.keywords[i] = self.keywords[i]! + " " + index.key
@@ -118,17 +122,29 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         
         let arr = keywords[indexPath.row]?.components(separatedBy: " ")
         
-        cell.keyWord1.text = arr![0]
+        
+        print(arr)
+        
+        cell.keyWord1.adjustsFontSizeToFitWidth = true
+        cell.keyWord1.minimumScaleFactor = 0.2
+        
+        cell.keyWord2.adjustsFontSizeToFitWidth = true
+        cell.keyWord2.minimumScaleFactor = 0.2
+        
+        cell.keyWord3.adjustsFontSizeToFitWidth = true
+        cell.keyWord3.minimumScaleFactor = 0.2
+        
+        cell.keyWord1.text = arr![0].replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "\'", with: "")
         cell.keyWord1.layer.borderColor = UIColor.black.cgColor
         cell.keyWord1.layer.borderWidth = 1.0
         cell.keyWord1.layer.cornerRadius = 8.0
         
-        cell.keyWord2.text = arr![1]
+        cell.keyWord2.text = arr![1].replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "\'", with: "")
         cell.keyWord2.layer.borderColor = UIColor.black.cgColor
         cell.keyWord2.layer.borderWidth = 1.0
         cell.keyWord2.layer.cornerRadius = 8.0
         
-        cell.keyWord3.text = arr![2]
+        cell.keyWord3.text = arr![2].replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "\'", with: "")
         cell.keyWord3.layer.borderColor = UIColor.black.cgColor
         cell.keyWord3.layer.borderWidth = 1.0
         cell.keyWord3.layer.cornerRadius = 8.0

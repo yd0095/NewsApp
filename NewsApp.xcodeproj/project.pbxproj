@@ -19,13 +19,13 @@
 		B93B8BF9242E38610062CEF2 /* SampleLogo1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B93B8BF6242E38610062CEF2 /* SampleLogo1.jpg */; };
 		B93B8BFA242E38610062CEF2 /* SampleLogo2.png in Resources */ = {isa = PBXBuildFile; fileRef = B93B8BF7242E38610062CEF2 /* SampleLogo2.png */; };
 		B93B8BFB242E38610062CEF2 /* SampleLogo3.png in Resources */ = {isa = PBXBuildFile; fileRef = B93B8BF8242E38610062CEF2 /* SampleLogo3.png */; };
+		B961528E243225FD002E6341 /* Pods_NewsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99DD5DB2A2AB6F41D180C72C /* Pods_NewsApp.framework */; };
 		B9FC90132431CAD6003364FC /* TableViewResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FC90122431CAD6003364FC /* TableViewResource.swift */; };
 		B9FC90162431CCB0003364FC /* TableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FC90152431CCB0003364FC /* TableManager.swift */; };
 		B9FC90182431D807003364FC /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FC90172431D807003364FC /* Plugin.swift */; };
 		B9FC901C2431DE73003364FC /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FC901B2431DE73003364FC /* NewsCell.swift */; };
 		B9FD89CF2430799700006445 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FD89CE2430799700006445 /* ContentViewController.swift */; };
 		B9FD89D624309FD400006445 /* Kanna.framework in Embedded Framework */ = {isa = PBXBuildFile; fileRef = B9FD89D0243092FC00006445 /* Kanna.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B9FD89D72430A08A00006445 /* Pods_NewsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99DD5DB2A2AB6F41D180C72C /* Pods_NewsApp.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9FD89D72430A08A00006445 /* Pods_NewsApp.framework in Frameworks */,
+				B961528E243225FD002E6341 /* Pods_NewsApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,8 +208,8 @@
 		B9FC90112431CA61003364FC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B9FD89CE2430799700006445 /* ContentViewController.swift */,
 				B93B8BC9242E35670062CEF2 /* ViewController.swift */,
+				B9FD89CE2430799700006445 /* ContentViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

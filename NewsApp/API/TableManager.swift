@@ -12,6 +12,7 @@ import Kanna
 final class TableManager {
     
     private var tableContents = [TableViewResource]()
+    private var notLoadedList = [Int]()
     
     init() {
         fetch()
@@ -37,65 +38,61 @@ final class TableManager {
                 self.tableContents[rowCnt].link = item.text!
                 rowCnt += 1
             }
-            
             for item in 0..<rowCnt {
-                DispatchQueue.global().async {
-                 
                 let urlTmp = URL(string: self.tableContents[item].link)
-                print(urlTmp)
-        
                 if let mainContent = try? HTML(url: urlTmp!, encoding: .utf8) {
-                    //image 추출
-                    
-                    for contentFromHTML in mainContent.xpath("//meta[@property='og:image']") {
+                        //image 추출
                         
-                        let imageUrlString = contentFromHTML["content"]
-                        guard let imageUrl = URL(string: imageUrlString!) else { return }
-                        
-                        do {
-                         let dataFromLink = try Data(contentsOf: imageUrl)
-                         let imageFromLink = UIImage(data: dataFromLink)
-                         self.tableContents[item].image = imageFromLink!
+                        for contentFromHTML in mainContent.xpath("//meta[@property='og:image']") {
                             
-                        } catch let err {
-                         print("Error : \(err.localizedDescription)")
+                            let imageUrlString = contentFromHTML["content"]
+                            guard let imageUrl = URL(string: imageUrlString!) else { return }
+                            
+                            do {
+                             let dataFromLink = try Data(contentsOf: imageUrl)
+                             let imageFromLink = UIImage(data: dataFromLink)
+                             self.tableContents[item].image = imageFromLink!
+                            print("image loaded")
+                            } catch let err {
+                             print("Error : \(err.localizedDescription)")
+                            }
+                               
+                            //file download assurance TODO!!
+                            
                         }
-                           
-                        //file download assurance TODO!!
-                        
-                    }
-                    
-                        
-                    }
-                    
-                }
-
-            }
-            for item in 0..<rowCnt {
-                DispatchQueue.global().async {
-                    let urlTmp = URL(string: self.tableContents[item].link)
-                    if let mainContent = try? HTML(url: urlTmp!, encoding: .utf8) {
                         for contentFromHTML in mainContent.xpath("//meta[@property='og:description']") {
                             let contentFromUrl = contentFromHTML["content"]
                             self.tableContents[item].content = contentFromUrl!
+                            print("contentLoaded")
                          
                         }
-                        self.findKeyword(row: item)
-                    }
+                        
                 }
-            
+                else {
+                    print(urlTmp)
+                    print("url not loaded")
+                    notLoadedList.append(item)
+                }
             }
-            
+            self.eraseList()
+            self.findKeyword()
         }
         
     }
-    
+    final func eraseList() {
+        var interval = 0
+        for i in self.notLoadedList {
+            self.tableContents.remove(at: i-interval)
+            interval+=1
+        }
+        
+    }
 
     
-    final func findKeyword(row : Int) {
+    final func findKeyword() {
         
-        for contentFromUrl in self.tableContents {
-            let arr = contentFromUrl.content.components(separatedBy: " ")
+        for cnt in 0..<self.tableContents.count {
+            let arr = self.tableContents[cnt].content.components(separatedBy: " ")
             var dic = [String : Int]()
             for i in arr {
                 if i.count > 1 {
@@ -113,7 +110,7 @@ final class TableManager {
             let sortedDic = dic.sorted(by: {($1.value, $0.key) < ($0.value, $1.key)})
             
             for index in sortedDic {
-                self.tableContents[row].keywords.append(index.key)
+                self.tableContents[cnt].keywords.append(index.key)
             }
         }
     }

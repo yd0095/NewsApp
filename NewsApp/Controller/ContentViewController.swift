@@ -16,9 +16,11 @@ class ContentViewController: UIViewController ,UIGestureRecognizerDelegate{
     
     @IBOutlet weak var titleFromUrl: UILabel!
     
-    @IBOutlet weak var keyWord1: UILabel!
-    @IBOutlet weak var keyWord2: UILabel!
-    @IBOutlet weak var keyWord3: UILabel!
+    @IBOutlet weak var keyWord1Con: UILabel!
+    @IBOutlet weak var keyWord2Con: UILabel!
+    @IBOutlet weak var keyWord3Con: UILabel!
+    
+   
     
     
     var row = 0
@@ -35,9 +37,9 @@ class ContentViewController: UIViewController ,UIGestureRecognizerDelegate{
         let data = Plugin.shared.getContentPageSource(row: self.row)
         self.titleFromUrl.text = data.title
         self.link = data.link
-        self.keyWord1.text = data.keywords[0]
-        self.keyWord2.text = data.keywords[1]
-        self.keyWord3.text = data.keywords[2]
+        self.keyWord1Con.text = data.keywords[0]
+        self.keyWord2Con.text = data.keywords[1]
+        self.keyWord3Con.text = data.keywords[2]
 
     }
     

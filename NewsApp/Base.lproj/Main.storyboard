@@ -119,7 +119,7 @@
                                 <rect key="frame" x="0.0" y="734" width="414" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRG-dE-8bK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRG-dE-8bK" userLabel="titleFormUrl">
                                         <rect key="frame" x="38" y="21" width="360" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -156,6 +156,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="CWk-Qm-IvF"/>
                     <connections>
+                        <outlet property="keyWord1" destination="Hfi-qe-QGD" id="8ea-Ko-IOg"/>
+                        <outlet property="keyWord2" destination="l9u-PV-z6j" id="YdK-Hj-c26"/>
+                        <outlet property="keyWord3" destination="cHU-8V-YWe" id="0ny-kY-azL"/>
+                        <outlet property="title" destination="mRG-dE-8bK" id="3wV-ZK-MTX"/>
+                        <outlet property="titleFromUrl" destination="mRG-dE-8bK" id="ziE-aS-8cF"/>
                         <outlet property="viewForTitle" destination="Swn-Sk-mN6" id="MnS-gT-JEg"/>
                         <outlet property="webView" destination="Li0-Af-Xpq" id="bBa-Dy-oIo"/>
                     </connections>

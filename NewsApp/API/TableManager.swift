@@ -13,6 +13,7 @@ final class TableManager {
     
     private var tableContents = [TableViewResource]()
     private var notLoadedList = [Int]()
+    private var eraseOnceFlag = false
     
     init() {
         fetch()
@@ -80,11 +81,18 @@ final class TableManager {
         
     }
     final func eraseList() {
-        var interval = 0
-        for i in self.notLoadedList {
-            self.tableContents.remove(at: i-interval)
-            interval+=1
+        if eraseOnceFlag == false {
+            var interval = 0
+            for i in self.notLoadedList {
+                //debug
+                print("\(i)번째 삭제")
+                self.tableContents.remove(at: i-interval)
+                interval+=1
+            }
+            self.eraseOnceFlag = true
         }
+        
+        
         
     }
 

@@ -30,6 +30,11 @@ class ContentViewController: UIViewController ,UIGestureRecognizerDelegate{
         super.viewDidLoad()
         setGestureRecognizer()
         getDataFromPlugin()
+        
+        
+        
+        
+        
     }
     
     func getDataFromPlugin() {
@@ -37,6 +42,31 @@ class ContentViewController: UIViewController ,UIGestureRecognizerDelegate{
         let data = Plugin.shared.getContentPageSource(row: self.row)
         self.titleFromUrl.text = data.title
         self.link = data.link
+        
+        self.keyWord1Con.adjustsFontSizeToFitWidth = true
+        self.keyWord1Con.minimumScaleFactor = 0.2
+        
+        self.keyWord2Con.adjustsFontSizeToFitWidth = true
+        self.keyWord2Con.minimumScaleFactor = 0.2
+        
+        self.keyWord3Con.adjustsFontSizeToFitWidth = true
+        self.keyWord3Con.minimumScaleFactor = 0.2
+        
+        
+        self.keyWord1Con.layer.borderColor = UIColor.white.cgColor
+        self.keyWord1Con.layer.borderWidth = 1.0
+        self.keyWord1Con.layer.cornerRadius = 8.0
+        
+        self.keyWord2Con.layer.borderColor = UIColor.white.cgColor
+        self.keyWord2Con.layer.borderWidth = 1.0
+        self.keyWord2Con.layer.cornerRadius = 8.0
+        
+        self.keyWord3Con.layer.borderColor = UIColor.white.cgColor
+        self.keyWord3Con.layer.borderWidth = 1.0
+        self.keyWord3Con.layer.cornerRadius = 8.0
+        
+        
+        
         self.keyWord1Con.text = data.keywords[0]
         self.keyWord2Con.text = data.keywords[1]
         self.keyWord3Con.text = data.keywords[2]

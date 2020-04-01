@@ -17,10 +17,12 @@ final class TableManager {
     
     init() {
         fetch()
+        
+        
     }
     
     func fetch() {
-        
+        self.tableContents.removeAll()
         let urlString = "https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko"
         guard let url = URL(string: urlString) else {return}
         

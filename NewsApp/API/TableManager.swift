@@ -9,6 +9,9 @@
 import UIKit
 import Kanna
 
+//https://github.com/tid-kijyun/Kanna [Kanna]
+//XML,HTML Parser
+
 final class TableManager {
     
     private var tableContents = [TableViewResource]()

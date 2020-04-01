@@ -9,23 +9,55 @@
 import UIKit
 import Kanna
 
-//https://github.com/tid-kijyun/Kanna [Kanna]
+
 //XML,HTML Parser
 
 final class TableManager {
     
     private var tableContents = [TableViewResource]()
     private var notLoadedList = [Int]()
-    private var eraseOnceFlag = false
     
     init() {
         fetch()
-        
-        
+ 
     }
     
+    func eraseListTableManager() {
+        
+    }
+
+    
+    func findKeywordTableManager() {
+        
+        for cnt in 0..<self.tableContents.count {
+            let arr = self.tableContents[cnt].content.components(separatedBy: " ")
+            var dic = [String : Int]()
+            for i in arr {
+                if i.count > 1 {
+                    if let val = dic[i] {
+                        dic[i] = val+1
+                    } else {
+                        dic[i] = 1
+                    }
+                }
+                else {
+                    continue
+                }
+            }
+
+            let sortedDic = dic.sorted(by: {($1.value, $0.key) < ($0.value, $1.key)})
+            
+            for index in sortedDic {
+                self.tableContents[cnt].keywords.append(index.key)
+            }
+        }
+    }
+    
+    
     func fetch() {
+        
         self.tableContents.removeAll()
+        
         let urlString = "https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko"
         guard let url = URL(string: urlString) else {return}
         
@@ -80,53 +112,19 @@ final class TableManager {
                     notLoadedList.append(item)
                 }
             }
-            self.eraseList()
-            self.findKeyword()
+            
         }
-        
-    }
-    final func eraseList() {
-        if eraseOnceFlag == false {
-            var interval = 0
-            for i in self.notLoadedList {
+        var interval = 0
+        for i in self.notLoadedList {
                 //debug
                 print("\(i)번째 삭제")
                 self.tableContents.remove(at: i-interval)
                 interval+=1
-            }
-            self.eraseOnceFlag = true
         }
-        
-        
-        
+        self.findKeywordTableManager()
     }
-
     
-    final func findKeyword() {
-        
-        for cnt in 0..<self.tableContents.count {
-            let arr = self.tableContents[cnt].content.components(separatedBy: " ")
-            var dic = [String : Int]()
-            for i in arr {
-                if i.count > 1 {
-                    if let val = dic[i] {
-                        dic[i] = val+1
-                    } else {
-                        dic[i] = 1
-                    }
-                }
-                else {
-                    continue
-                }
-            }
-
-            let sortedDic = dic.sorted(by: {($1.value, $0.key) < ($0.value, $1.key)})
-            
-            for index in sortedDic {
-                self.tableContents[cnt].keywords.append(index.key)
-            }
-        }
-    }
+    
     
     func getTableContents() -> [TableViewResource] {
         return self.tableContents

@@ -18,12 +18,22 @@ final class TableManager {
     private var notLoadedList = [Int]()
     
     init() {
-        fetch()
- 
+        self.fetch()
+        self.eraseListTableManager()
+        self.findKeywordTableManager()
     }
     
     func eraseListTableManager() {
-        
+        var interval = 0
+        print(self.notLoadedList)
+        print("")
+        for i in self.notLoadedList {
+                //debug
+                print("\(i)번째 삭제")
+                self.tableContents.remove(at: i-interval)
+                interval+=1
+        }
+
     }
 
     
@@ -114,14 +124,6 @@ final class TableManager {
             }
             
         }
-        var interval = 0
-        for i in self.notLoadedList {
-                //debug
-                print("\(i)번째 삭제")
-                self.tableContents.remove(at: i-interval)
-                interval+=1
-        }
-        self.findKeywordTableManager()
     }
     
     

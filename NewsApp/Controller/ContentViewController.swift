@@ -30,11 +30,6 @@ class ContentViewController: UIViewController ,UIGestureRecognizerDelegate{
         super.viewDidLoad()
         setGestureRecognizer()
         getDataFromPlugin()
-        
-        
-        
-        
-        
     }
     
     func getDataFromPlugin() {

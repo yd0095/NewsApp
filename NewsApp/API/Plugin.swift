@@ -18,9 +18,19 @@ final class Plugin {
     func getTableContents() -> [TableViewResource] {
         return tableManager.getTableContents()
     }
+    
     func fetch() {
-        tableManager.fetch()
+        self.tableManager.fetch()
     }
+    
+    func eraseList() {
+        self.tableManager.eraseListTableManager()
+    }
+    
+    func findKeyWords() {
+        self.tableManager.findKeywordTableManager()
+    }
+    
     func getContentPageSource(row: Int) -> contentPageSource {
         return tableManager.getContentPageSource(row: row)
     }

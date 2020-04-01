@@ -38,6 +38,8 @@ class ViewController: UIViewController {
     }
     @objc func refreshList() {
         Plugin.shared.fetch()
+        Plugin.shared.eraseList()
+        Plugin.shared.findKeyWords()
         self.tableData.removeAll()
         self.tableData = Plugin.shared.getTableContents()
         refreshControl?.endRefreshing()
